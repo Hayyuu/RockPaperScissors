@@ -7,7 +7,7 @@ function playRound(playerChoice,computerChoice){
     playerChoice=playerChoice.toUpperCase();
     computerChoice=computerChoice.toUpperCase();
     if(playerChoice==computerChoice){
-        winner="No winner";
+        return;
     }
     else if(playerChoice==rock){
         if(computerChoice==scissor){
@@ -51,7 +51,19 @@ function getComputerChoice(){
     else choice="Scissor";
     return choice;
 }
-const playerChoice="paper";
-const computerChoice=getComputerChoice();
-console.log(`${playerChoice} , ${computerChoice}`);
-console.log(playRound(playerChoice,computerChoice));
+function printWinner(){
+const playerChoice="paper".toUpperCase();
+const computerChoice=getComputerChoice().toUpperCase();
+console.log(`Player Choice - ${playerChoice}\nComputer Coice - ${computerChoice}`);
+let winner=playRound(playerChoice,computerChoice);
+    if(winner==playerChoice){
+        console.log(`You Won! ${playerChoice} beats ${computerChoice}`);
+    }
+    else if(winner==computerChoice){
+        console.log(`You lost! ${computerChoice} beats ${playerChoice}`);
+    }
+    else{
+        console.log("No one is a Winner");
+    }
+}
+printWinner();
