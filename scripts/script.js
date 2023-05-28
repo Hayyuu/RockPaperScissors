@@ -51,19 +51,31 @@ function getComputerChoice(){
     else choice="Scissor";
     return choice;
 }
-function printWinner(){
-const playerChoice="paper".toUpperCase();
-const computerChoice=getComputerChoice().toUpperCase();
-console.log(`Player Choice - ${playerChoice}\nComputer Coice - ${computerChoice}`);
-let winner=playRound(playerChoice,computerChoice);
-    if(winner==playerChoice){
-        console.log(`You Won! ${playerChoice} beats ${computerChoice}`);
+function printWinner(playerCount,computerCount){
+    if(playerCount>computerCount){
+        console.log(`You Won! your score - ${playerCount} computer score ${computerCount}`);
     }
-    else if(winner==computerChoice){
-        console.log(`You lost! ${computerChoice} beats ${playerChoice}`);
+    else if(playerCount<computerCount){
+        console.log(`You lost! your score -  ${playerCount} computer score ${computerCount}`);
     }
     else{
         console.log("No one is a Winner");
     }
 }
-printWinner();
+function game(){
+    let playerCount=0;
+    let computerCount=0;
+    for(let i=0;i<5;i++){
+        const playerChoice=prompt("Enter your choice").toUpperCase();
+        const computerChoice=getComputerChoice().toUpperCase();
+        const winner = playRound(playerChoice, computerChoice);
+        if(winner==playerChoice){
+            playerCount++;
+        }
+        if(winner==computerChoice){
+            computerCount++;
+        }
+}
+    printWinner(playerCount,computerCount);
+}
+game();
