@@ -1,10 +1,11 @@
 
-function playRound(playerChoice,computerChoice){
+function playRound(e){
     let winner,loser;
     let rock="ROCK";
     let paper="PAPER";
     let scissor="SCISSOR";
-    playerChoice=playerChoice.toUpperCase();
+    let computerChoice=getComputerChoice().toUpperCase();
+    playerChoice=e.target.textContent.toUpperCase();
     computerChoice=computerChoice.toUpperCase();
     if(playerChoice==computerChoice){
         return;
@@ -39,7 +40,12 @@ function playRound(playerChoice,computerChoice){
             loser=paper;
         }
     }
-    return winner;
+    if(winner==playerChoice){
+        return 'playerChoice';
+    }
+    if(winner==computerChoice){
+        return 'computerChoice';
+    }
 
 }
 
@@ -52,30 +58,43 @@ function getComputerChoice(){
     return choice;
 }
 function printWinner(playerCount,computerCount){
+    const div1=document.querySelector('div');
+    const p2=document.createElement('p');
+    div1.textcontent
     if(playerCount>computerCount){
-        console.log(`You Won! your score - ${playerCount} computer score ${computerCount}`);
+        p2.textContent=`You Won! your score - ${playerCount} computer score ${computerCount}`;
     }
     else if(playerCount<computerCount){
-        console.log(`You lost! your score -  ${playerCount} computer score ${computerCount}`);
+        p2.textContent=`You lost! your score -  ${playerCount} computer score ${computerCount}`;
     }
     else{
-        console.log("No one is a Winner");
+        p2.textContent="No one is a Winner";
     }
+    div1.appendChild(p2);
 }
 function game(){
     let playerCount=0;
     let computerCount=0;
-    for(let i=0;i<5;i++){
-        const playerChoice=prompt("Enter your choice").toUpperCase();
-        const computerChoice=getComputerChoice().toUpperCase();
-        const winner = playRound(playerChoice, computerChoice);
-        if(winner==playerChoice){
+    let winner;
+    const buttons=Array.from(document.querySelectorAll('.button'));
+    buttons.forEach(button => button.addEventListener('click',function(event){
+        winner=playRound(event);
+        if(winner=='playerChoice'){
             playerCount++;
         }
-        if(winner==computerChoice){
+        if(winner=='computerChoice'){
             computerCount++;
         }
-}
-    printWinner(playerCount,computerCount);
+        const div1=document.querySelector('div');
+        const p=document.createElement('p');
+        p.textContent=`Keep Playing! \nYour Score - ${playerCount}\nComputer Score - ${computerCount}`;
+        div1.appendChild(p);
+        if(playerCount==5 || computerCount==5){
+            printWinner(playerCount,computerCount);
+            return;
+        }
+    }
+    
+        ));
 }
 game();
